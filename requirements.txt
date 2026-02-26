@@ -1,0 +1,11 @@
+pandas
+numpy
+matplotlib
+scikit-learn
+pyarrow
+tqdm
+vaderSentiment
+scipy
+statsmodels
+sentence-transformers
+bertopic
