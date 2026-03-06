@@ -8,26 +8,53 @@ from pathlib import Path
 import json
 import pandas as pd
 
-DATA_DIR = Path("data/raw/OMC")
+OMC_DIR = Path("data/raw/OMC")
+UO_DIR = Path("data/raw/UO")
+CMV_DIR = Path("data/raw/CMV")
 
+# 1000 OMC posts
 OMC_POSTS = [
-    DATA_DIR/ "OMC-hot-first-100.json",
-    DATA_DIR/ "OMC-hot-second-100.json",
-    DATA_DIR/ "OMC-hot-third-100.json",
-    DATA_DIR/ "OMC-hot-fourth-100.json",
-    DATA_DIR/ "OMC-hot-fifth-100.json",
+    OMC_DIR/ "OMC-hot-first-100.json",
+    OMC_DIR/ "OMC-hot-second-100.json",
+    OMC_DIR/ "OMC-hot-third-100.json",
+    OMC_DIR/ "OMC-hot-fourth-100.json",
+    OMC_DIR/ "OMC-hot-fifth-100.json",
 
-    DATA_DIR/ "OMC-new-first-100.json",
-    DATA_DIR/ "OMC-new-second-100.json",
-    DATA_DIR/ "OMC-new-third-100.json",
-    DATA_DIR/ "OMC-new-fourth-100.json",
-    DATA_DIR/ "OMC-new-fifth-100.json",
+    OMC_DIR/ "OMC-new-first-100.json",
+    OMC_DIR/ "OMC-new-second-100.json",
+    OMC_DIR/ "OMC-new-third-100.json",
+    OMC_DIR/ "OMC-new-fourth-100.json",
+    OMC_DIR/ "OMC-new-fifth-100.json"
+]
 
-    DATA_DIR/ "OMC-topweek-first-100.json",
-    DATA_DIR/ "OMC-topweek-second-100.json",
-    DATA_DIR/ "OMC-topweek-third-100.json",
-    DATA_DIR/ "OMC-topweek-fourth-100.json",
-    DATA_DIR/ "OMC-topweek-fifth-100.json"
+# 1000 UO posts
+UO_POSTS = [
+    UO_DIR / "UO-hot-first-100.json",
+    UO_DIR / "UO-hot-second-100.json",
+    UO_DIR / "UO-hot-third-100.json",
+    UO_DIR / "UO-hot-fourth-100.json",
+    UO_DIR / "UO-hot-fifth-100.json",
+
+    UO_DIR / "UO-new-first-100.json",
+    UO_DIR / "UO-new-second-100.json",
+    UO_DIR / "UO-new-third-100.json",
+    UO_DIR / "UO-new-fourth-100.json",
+    UO_DIR / "UO-new-fifth-100.json",
+]
+
+# 1000 CMV posts
+CMV_POSTS = [
+    CMV_DIR / "CMV-hot-first-100.json",
+    CMV_DIR / "CMV-hot-second-100.json",
+    CMV_DIR / "CMV-hot-third-100.json",
+    CMV_DIR / "CMV-hot-fourth-100.json",
+    CMV_DIR / "CMV-hot-fifth-100.json",
+
+    CMV_DIR / "CMV-new-first-100.json",
+    CMV_DIR / "CMV-new-second-100.json",
+    CMV_DIR / "CMV-new-third-100.json",
+    CMV_DIR / "CMV-new-fourth-100.json",
+    CMV_DIR / "CMV-new-fifth-100.json",
 ]
 
 def jsons_to_df(paths: list[Path]) -> pd.DataFrame:
@@ -66,12 +93,36 @@ def jsons_to_df(paths: list[Path]) -> pd.DataFrame:
 
     return pd.concat(frames, ignore_index = True)
 
-
 raw_OMC_df = jsons_to_df(OMC_POSTS)
+raw_UO_df = jsons_to_df(UO_POSTS)
+raw_CMV_df = jsons_to_df(CMV_POSTS)
 
-print("confirmed")
-print(raw_OMC_df.shape)
-print(raw_OMC_df[["id", "subreddit", ]].head(10))
-print(raw_OMC_df[["title", "selftext"]].head(10))
-print(raw_OMC_df[["score", "num_comments"]].head(10))
-print(raw_OMC_df[["upvote_ratio", "ups", "total_awards_received", "num_crossposts"]].head(10))
+KEEP_COLS = [
+    "id",
+    "subreddit",
+    "subreddit_name_prefixed",
+    "created_utc",
+    "title",
+    "selftext",
+    "score",
+    "num_comments",
+    "upvote_ratio",
+    "is_self",
+    "is_video",
+    "url"
+]   
+
+def preview_df(df: pd.DataFrame, name: str, columns: list[str]) -> None:
+    print(f"\n{name} shape:", df.shape)
+
+    if df.empty:
+        print(f"{name} is empty")
+        return
+
+    selected = [c for c in columns if c in df.columns]
+    
+    print(df[selected].head(10))
+
+preview_df(raw_OMC_df, "raw_OMC_df", KEEP_COLS)
+preview_df(raw_UO_df, "raw_UO_df", KEEP_COLS)
+preview_df(raw_CMV_df, "raw_CMV_df", KEEP_COLS)
