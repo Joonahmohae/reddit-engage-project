@@ -93,36 +93,15 @@ def jsons_to_df(paths: list[Path]) -> pd.DataFrame:
 
     return pd.concat(frames, ignore_index = True)
 
-raw_OMC_df = jsons_to_df(OMC_POSTS)
-raw_UO_df = jsons_to_df(UO_POSTS)
-raw_CMV_df = jsons_to_df(CMV_POSTS)
+def load_OMC_df():
+    raw_OMC_df = jsons_to_df(OMC_POSTS)
+    return raw_OMC_df
 
-KEEP_COLS = [
-    "id",
-    "subreddit",
-    "subreddit_name_prefixed",
-    "created_utc",
-    "title",
-    "selftext",
-    "score",
-    "num_comments",
-    "upvote_ratio",
-    "is_self",
-    "is_video",
-    "url"
-]   
+def load_UO_df():
+    raw_UO_df = jsons_to_df(UO_POSTS)
+    return raw_UO_df
 
-def preview_df(df: pd.DataFrame, name: str, columns: list[str]) -> None:
-    print(f"\n{name} shape:", df.shape)
+def load_CMV_df():
+    raw_CMV_df = jsons_to_df(CMV_POSTS)
+    return raw_CMV_df
 
-    if df.empty:
-        print(f"{name} is empty")
-        return
-
-    selected = [c for c in columns if c in df.columns]
-    
-    print(df[selected].head(10))
-
-preview_df(raw_OMC_df, "raw_OMC_df", KEEP_COLS)
-preview_df(raw_UO_df, "raw_UO_df", KEEP_COLS)
-preview_df(raw_CMV_df, "raw_CMV_df", KEEP_COLS)
