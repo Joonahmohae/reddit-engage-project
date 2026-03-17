@@ -4,13 +4,16 @@
 3. 
 """
 
+
 from pathlib import Path
 import json
 import pandas as pd
 
+
 OMC_DIR = Path("data/raw/OMC")
 UO_DIR = Path("data/raw/UO")
 CMV_DIR = Path("data/raw/CMV")
+
 
 # 1000 OMC posts
 OMC_POSTS = [
@@ -27,6 +30,7 @@ OMC_POSTS = [
     OMC_DIR/ "OMC-new-fifth-100.json"
 ]
 
+
 # 1000 UO posts
 UO_POSTS = [
     UO_DIR / "UO-hot-first-100.json",
@@ -42,6 +46,7 @@ UO_POSTS = [
     UO_DIR / "UO-new-fifth-100.json",
 ]
 
+
 # 1000 CMV posts
 CMV_POSTS = [
     CMV_DIR / "CMV-hot-first-100.json",
@@ -56,6 +61,7 @@ CMV_POSTS = [
     CMV_DIR / "CMV-new-fourth-100.json",
     CMV_DIR / "CMV-new-fifth-100.json",
 ]
+
 
 def jsons_to_df(paths: list[Path]) -> pd.DataFrame:
     frames = []
@@ -93,13 +99,16 @@ def jsons_to_df(paths: list[Path]) -> pd.DataFrame:
 
     return pd.concat(frames, ignore_index = True)
 
+
 def load_OMC_df():
     raw_OMC_df = jsons_to_df(OMC_POSTS)
     return raw_OMC_df
 
+
 def load_UO_df():
     raw_UO_df = jsons_to_df(UO_POSTS)
     return raw_UO_df
+
 
 def load_CMV_df():
     raw_CMV_df = jsons_to_df(CMV_POSTS)
