@@ -50,6 +50,7 @@ def clean_posts(df: pd.DataFrame, columns: list[str]) -> pd.DataFrame:
     
     return df
 
+
 cleaned_OMC = clean_posts(loaded_OMC, KEEP_COLS)
 cleaned_UO = clean_posts(loaded_UO, KEEP_COLS)
 cleaned_CMV = clean_posts(loaded_CMV, KEEP_COLS)
@@ -64,14 +65,29 @@ def preview_df(df: pd.DataFrame, name: str) -> None:
     
     print(df.head(10))
 
+
 preview_df(cleaned_OMC, "cleaned_OMC_df")
 preview_df(loaded_OMC, "loaded_OMC_df")
+
 
 preview_df(cleaned_UO, "cleaned_UO_df")
 preview_df(loaded_UO, "loaded_UO_df")
 
+
 preview_df(cleaned_CMV, "cleaned_CMVc_df")
 preview_df(loaded_CMV, "loaded_CMVc_df")
+
+
+def cleaned_OMC_df():
+    return cleaned_OMC
+
+
+def cleaned_UO_df():
+    return cleaned_UO
+
+
+def cleaned_CMV_df():
+    return cleaned_CMV
 
 
 
