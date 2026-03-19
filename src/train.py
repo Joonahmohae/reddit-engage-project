@@ -39,7 +39,7 @@ def prepare_data(df: pd.DataFrame):
 
     X = pd.get_dummies(
         model_df[["subreddit", "sentiment_score", "sentiment_strength"]],
-        columns=["subreddit"],
+        columns = ["subreddit"],
         drop_first=True
         )
 
@@ -85,7 +85,7 @@ if __name__ == "__main__":
 
     if "engagement_level" in df.columns:
         print("\nfull engagement counts:")
-        print(df["engagement_level"].value_counts(dropna=False))
+        print(df["engagement_level"].value_counts(dropna = False))
 
     X, y, model_df = prepare_data(df)
 

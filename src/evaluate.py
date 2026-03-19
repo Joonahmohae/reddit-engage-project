@@ -19,7 +19,7 @@ def load_sentiment_model():
     print("Loading sentiment model")
     clf = pipeline(
         "sentiment-analysis",
-        model="cardiffnlp/twitter-roberta-base-sentiment-latest"
+        model = "cardiffnlp/twitter-roberta-base-sentiment-latest"
         )
     
     print("Sentiment model loaded.")
