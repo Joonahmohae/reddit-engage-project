@@ -1,10 +1,3 @@
-"""
-1. Collect JSON files in POSTS
-2. Load them into DF
-3. 
-"""
-
-
 from pathlib import Path
 import json
 import pandas as pd
@@ -15,7 +8,7 @@ UO_DIR = Path("data/raw/UO")
 CMV_DIR = Path("data/raw/CMV")
 
 
-# 1000 OMC posts
+# 1000 OMC(r/offmychest) posts
 OMC_POSTS = [
     OMC_DIR/ "OMC-hot-first-100.json",
     OMC_DIR/ "OMC-hot-second-100.json",
@@ -31,7 +24,7 @@ OMC_POSTS = [
 ]
 
 
-# 1000 UO posts
+# 1000 r/unpopularopinion(UO) posts
 UO_POSTS = [
     UO_DIR / "UO-hot-first-100.json",
     UO_DIR / "UO-hot-second-100.json",
@@ -47,7 +40,7 @@ UO_POSTS = [
 ]
 
 
-# 1000 CMV posts
+# 1000 r/changemyview(CMV) posts
 CMV_POSTS = [
     CMV_DIR / "CMV-hot-first-100.json",
     CMV_DIR / "CMV-hot-second-100.json",
@@ -63,6 +56,7 @@ CMV_POSTS = [
 ]
 
 
+# Concatnate multiple json files into a dataframe
 def jsons_to_df(paths: list[Path]) -> pd.DataFrame:
     frames = []
     
@@ -74,7 +68,6 @@ def jsons_to_df(paths: list[Path]) -> pd.DataFrame:
         with open(path, "r", encoding="utf-8") as f:
             obj = json.load(f)
 
-        # Reddit listing -> data -> children -> each child["data"] is one post
         children = obj.get("data", {}).get("children", [])
 
         rows = []
@@ -100,17 +93,17 @@ def jsons_to_df(paths: list[Path]) -> pd.DataFrame:
     return pd.concat(frames, ignore_index = True)
 
 
-def load_OMC_df():
+def load_OMC_df() -> pd.DataFrame:
     raw_OMC_df = jsons_to_df(OMC_POSTS)
     return raw_OMC_df
 
 
-def load_UO_df():
+def load_UO_df() -> pd.DataFrame:
     raw_UO_df = jsons_to_df(UO_POSTS)
     return raw_UO_df
 
 
-def load_CMV_df():
+def load_CMV_df() -> pd.DataFrame:
     raw_CMV_df = jsons_to_df(CMV_POSTS)
     return raw_CMV_df
 
