@@ -62,9 +62,9 @@ def make_feature_table(df: pd.DataFrame, scrape_time_utc: pd.Timestamp) -> pd.Da
 
 
 def make_all_feature_tables():
-    CMV_scrape_time = pd.Timestamp("2026-03-06 01:22:18", tz="UTC")
-    OMC_scrape_time = pd.Timestamp("2026-03-04 07:20:18", tz="UTC")
-    UO_scrape_time = pd.Timestamp("2026-03-06 00:27:12", tz="UTC")
+    CMV_scrape_time = pd.Timestamp("2026-03-06 01:22:18", tz = "UTC")
+    OMC_scrape_time = pd.Timestamp("2026-03-04 07:20:18", tz = "UTC")
+    UO_scrape_time = pd.Timestamp("2026-03-06 00:27:12", tz = "UTC")
 
     CMV_features = make_feature_table(cleaned_CMV, CMV_scrape_time)
     OMC_features = make_feature_table(cleaned_OMC, OMC_scrape_time)

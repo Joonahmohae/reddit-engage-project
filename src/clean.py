@@ -30,30 +30,24 @@ def clean_posts(df: pd.DataFrame, keep_columns: list[str]) -> pd.DataFrame:
     df = df[~df["title"].isin(["[deleted]", "[removed]"])]
 
     # Remove duplicate content
-    df = df.drop_duplicates(subset=["title", "selftext"])
+    df = df.drop_duplicates(subset = ["title", "selftext"])
 
     # Clean only text columns
     for col in ["title", "selftext"]:
         if col in df.columns:
             df[col] = (
                 df[col]
-                # literal escaped chars from JSON-like text
-                .str.replace(r"\\n|\\t|\\r", " ", regex=True)
-                # actual control chars
-                .str.replace(r"[\n\t\r]", " ", regex=True)
-                # markdown link: [text](url) -> text
-                .str.replace(r"\[([^\]]+)\]\(([^)]+)\)", r"\1", regex=True)
-                # remove raw URLs only
-                .str.replace(r"http\S+|www\.\S+", " ", regex=True)
-                # unescape punctuation like \- -> -
-                .str.replace(r"\\([\-*_[\]()])", r"\1", regex=True)
-                # collapse whitespace
-                .str.replace(r"\s+", " ", regex=True)
+                .str.replace(r"\\n|\\t|\\r", " ", regex = True)
+                .str.replace(r"[\n\t\r]", " ", regex = True)
+                .str.replace(r"\[([^\]]+)\]\(([^)]+)\)", r"\1", regex = True)
+                .str.replace(r"http\S+|www\.\S+", " ", regex = True)
+                .str.replace(r"\\([\-*_[\]()])", r"\1", regex = True)
+                .str.replace(r"\s+", " ", regex = True)
                 .str.strip()
                 )
             
     if "title" in df.columns:
-        df["title"] = df["title"].str.replace(r"^\s*CMV\s*:\s*|^\s*OMC\s*:\s*|^\s*UO\s*:\s*", "", regex=True, case=False)
+        df["title"] = df["title"].str.replace(r"^\s*CMV\s*:\s*|^\s*OMC\s*:\s*|^\s*UO\s*:\s*", "", regex = True, case = False)
 
     # Keep requested columns
     df = df[[c for c in keep_columns if c in df.columns]]

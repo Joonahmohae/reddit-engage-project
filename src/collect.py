@@ -65,7 +65,7 @@ def jsons_to_df(paths: list[Path]) -> pd.DataFrame:
             print(f"Skipping (not found): {path}")
             continue
 
-        with open(path, "r", encoding="utf-8") as f:
+        with open(path, "r", encoding = "utf-8") as f:
             obj = json.load(f)
 
         children = obj.get("data", {}).get("children", [])
