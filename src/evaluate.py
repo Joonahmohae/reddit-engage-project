@@ -52,7 +52,7 @@ def add_sentiment_features(df, clf, name = "dataset", chunk_size = 100, batch_si
             truncation = True,
             max_length = 300,
             top_k = None,
-            batch_size=batch_size
+            batch_size = batch_size
             )
         
         all_results.extend(batch_results)
