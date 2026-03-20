@@ -13,11 +13,9 @@ def make_full_dataset():
     all_path = os.path.join(OUTPUT_DIR, "all_sentiment.csv")
 
     if os.path.exists(all_path):
-        print("Loading full dataset from path outputs/all_sentiment.csv")
         df = pd.read_csv(all_path)
         return df
 
-    print("Building dataset from evaluate.py")
     CMV_sentiment, OMC_sentiment, UO_sentiment = make_all_sentiment_tables(use_saved = True)
     df = pd.concat([CMV_sentiment, OMC_sentiment, UO_sentiment], ignore_index = True)
     return df
@@ -40,7 +38,7 @@ def prepare_data(df: pd.DataFrame):
     X = pd.get_dummies(
         model_df[["subreddit", "sentiment_score", "sentiment_strength"]],
         columns = ["subreddit"],
-        drop_first=True
+        drop_first = True
         )
 
     X = X.astype(float)
@@ -64,7 +62,6 @@ def fit_ordinal_logit(X_train: pd.DataFrame, y_train: pd.Series):
         exog = X_train,
         distr = "logit"
         )
-
 
     result = model.fit(method = "bfgs", disp = False)
     return model, result
@@ -104,13 +101,13 @@ if __name__ == "__main__":
     print("Train shape:", X_train.shape)
     print("Test shape:", X_test.shape)
 
-    print("\nFitting ordinal logistic regression...")
+    print("\nFitting ordinal logistic regression")
     model, result = fit_ordinal_logit(X_train, y_train)
 
     print("\nMODEL SUMMARY")
     print(result.summary())
 
-    print("\nMaking predictions...")
+    print("\nMaking predictions")
     pred_probs, y_pred = predict_classes(result, X_test)
 
     print("\nACCURACY")
@@ -124,7 +121,7 @@ if __name__ == "__main__":
 
     print("\nFIRST 10 PREDICTIONS")
     comparison = pd.DataFrame({
-        "actual": y_test.reset_index(drop=True),
+        "actual": y_test.reset_index(drop = True),
         "predicted": y_pred
         })
     

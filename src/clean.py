@@ -49,7 +49,6 @@ def clean_posts(df: pd.DataFrame, keep_columns: list[str]) -> pd.DataFrame:
     if "title" in df.columns:
         df["title"] = df["title"].str.replace(r"^\s*CMV\s*:\s*|^\s*OMC\s*:\s*|^\s*UO\s*:\s*", "", regex = True, case = False)
 
-    # Keep requested columns
     df = df[[c for c in keep_columns if c in df.columns]]
 
     return df

@@ -1,5 +1,3 @@
-# this is supposed to be topics
-
 from transformers import pipeline, logging as hf_logging
 from huggingface_hub import logging as hub_logging
 from .features import make_all_feature_tables
@@ -79,7 +77,7 @@ def load_saved_sentiment_tables():
     uo_path = os.path.join(OUTPUT_DIR, "UO_sentiment.csv")
 
     if all(os.path.exists(p) for p in [cmv_path, omc_path, uo_path]):
-        print("Loading saved sentiment tables from outputs/ ...")
+        print("Loading saved sentiment tables from outputs")
         CMV_sentiment = pd.read_csv(cmv_path)
         OMC_sentiment = pd.read_csv(omc_path)
         UO_sentiment = pd.read_csv(uo_path)
@@ -88,7 +86,7 @@ def load_saved_sentiment_tables():
     return None
 
 
-def make_all_sentiment_tables(use_saved=True):
+def make_all_sentiment_tables(use_saved = True):
     if use_saved:
         saved = load_saved_sentiment_tables()
         if saved is not None:
